@@ -1,0 +1,85 @@
+{% load static %}
+
+{% block stylesheet %}
+<style>
+    .footer {background-color: whitesmoke; padding: 2rem 5rem 0rem 5rem;margin-top: 3.5rem !important;}
+    .footer__left img { height: 4rem; padding-bottom: 0.3rem; }
+    .footerLeftContact { display: flex; flex-direction: column; padding: 0.5rem 0;}
+    .footerLeftContact > a { padding-bottom: 0.4rem; }
+    .footer h5 {padding-bottom: 1.5rem; font-size: 1rem; font-weight: bold;}
+    .footer ul {list-style: none;}
+    .footer ul li {padding-bottom: 0.6rem;}
+    .footer p { padding-bottom: 0.9rem; }
+    .footer form button { margin-top: 0.5rem !important; }
+
+    @media (max-width: 767.98px) {
+       .footer {padding: 2rem 1rem 0rem 1rem;}
+     }
+</style>
+{% endblock stylesheet %}
+
+<div class="footer">
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="footer__left">
+            <img src="{% static 'img/logo.jpg' %}" class="img-responsive"/>
+            <p>We make deliveries all around the beautiful city of Jalingo</p>
+
+            <div class="footerLeftContact">
+                <a href="">
+                    <i class="fa "></i> <span> 26 Jalingo street</span>
+                </a>
+                <a href="">
+                    <i class="fa "></i> <span>+234 808746536</span>
+                </a>
+                <a href="">
+                    <i class="fa "></i> <span>info@gmail.com</span>
+                </a>
+                <a href="">
+                    <i class="fa "></i> <span>Mon-Fri/ 9.00AM - 6.00PM</span>
+                </a>
+                <a href="">
+                    <i class="fa "></i> <span></span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <h5>Policy info</h5>
+        <ul>
+            <li><a href="">Privacy Policy</a> </li>
+            <li><a href="">Terms of agreement</a> </li>
+            <li><a href="">Terms of use</a> </li>
+            <li><a href="">Customer Service</a> </li>
+            <li><a href="">Delivery Information</a> </li>
+        </ul>
+        <br />
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <h5>About us</h5>
+        <p>We are the most reliable and dependable e-commerce website offering the best service you can find at your doorstep</p>
+        <br />
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <h5>Newsletter</h5>
+        <p>Sign up for free today and stand the chance to be notified about our new updates</p>
+
+        <form>
+            <input type="text" class="form-control" placeholder="Enter your email" />
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="row" style="border-top: 1px solid whitesmoke; padding: 0.5rem 0;">
+    <div class="col-md-9">
+        2020 Kasuwaa. All Rights Reserved
+    </div>
+
+    <div class="col-md-3">
+        Visa
+    </div>
+</div>
+</div>

@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load cart_template_tags %}
+
+{% block stylesheet %}
+<style>
+.category__tabs {padding: 0.5rem 5rem;
+background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(253, 253, 253, 1));}
+.category__tabs > h3 { font-weight: bold; font-size: 1.3rem; padding-bottom: 0.3rem; }
+.category__tabsLink a {font-style: italic;}
+.category__tabsLink .cat {color: peru !important;}
+
+.checkout {padding: 2rem 0;}
+.form-group {padding: 0.5rem 0.1rem;}
+
+.form p {padding-bottom: 2rem !important;}
+
+.cart_detailsHeader { display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.7rem;}
+.cart_detailsHeader > h4 {font-weight: bold;}
+.cart_detailsBody {border: 3px solid whitesmoke; padding: 0.9rem; border-radius: 0.5rem;}
+.cart__detailsBodySection {display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem;}
+.cart__detailsBodySection > div {display: flex; align-items: center;}
+.cart__detailsBodySection > div > img {height: 7vh; width: 7vh;margin-right: 0.4rem !important;}
+.cart__detailsBodySection > p {font-weight: bold;}
+
+.cart_detailsFooter {display: flex; justify-content: center; align-items: center;}
+.cart_detailsFooter > h5 {font-weight: bold;}
+.badge-peru {background-color: peru!important; border-radius: 1rem;}
+
+@media (max-width: 767.98px) {
+    .category {padding: 0 -1rem!important;}
+}
+</style>
+{% endblock stylesheet %}
+
+{% block overlay %}
+<div class="category">
+    <div class="category__tabs">
+        <h3>Shop</h3>
+        <div class="category__tabsLink">
+            <a href="">Home</a> >
+            <a href="" class="cat">Checkout</a>
+        </div>
+    </div>
+</div>
+{% endblock overlay %}
+
+{% block content %}
+<br />
+<br />
+<div class="row">
+    <div class="col-md-8">
+        <form style="paddng: 1rem 0;" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Checkout</button>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <br />
+        <div class="cart_details">
+            <div class="cart_detailsHeader">
+                <h4>Your Cart</h4>
+                <span class="badge badge-peru" style="color: white;">{{ request.user|cart_item_count }}</span>
+            </div>
+
+            <div class="cart_detailsBody">
+                {% for order in order.items.all %}
+                <div class="cart__detailsBodySection">
+                    <div>
+                        <img src="{{order.item.image.url}}" />
+                        <p>{{order.item.title}} (X{{order.quantity}})</p>
+                    </div>
+                    <p>N{{order.item.price}}.00</p>
+                </div>
+                {% endfor %}
+                <div class="cart_detailsFooter">
+                    <h5>Total(Naira): </h5> &nbsp;
+                    <h5>N{{ order.get_total }}.00</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!--div class="checkout">
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="checkout__billing">
+                <form>
+                    <h3>Billing Details</h3>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputName">First Name</label>
+                            <input type="name" class="form-control" id="inputName" placeholder="Enter first name" />
+                        </div>
+
+                       <div class="form-group col-md-6">
+                            <label for="inputName">First Name</label>
+                            <input type="name" class="form-control" id="inputName" placeholder="Enter first name" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputName">First Name</label>
+                        <input type="name" class="form-control" id="inputName" placeholder="Enter first name" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputName">First Name</label>
+                        <input type="name" class="form-control" id="inputName" placeholder="Enter first name" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputName">First Name</label>
+                        <input type="name" class="form-control" id="inputName" placeholder="Enter first name" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 col-xs-12">nsjknd</div>
+    </div>
+</div>
+</div-->

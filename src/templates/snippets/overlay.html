@@ -1,0 +1,123 @@
+{% load static %}
+
+{% block stylesheet %}
+<style>
+    .section__overlay { background-image: linear-gradient(to bottom, rgba(230, 230, 230, 1), rgba(255, 255, 255, 1)); height: 65vh;
+     padding: 1.3rem 4rem; width: 100% !important; border-radius: 0.5rem; border: 1px solid white;}
+     .section_overlayImage2 > img { width: 100% !important; height: 30vh;}
+
+     @media (max-width: 1159px) {
+    .section_overlayImage2 {display: none !important;}
+    }
+
+     @media (max-width: 767.98px) {
+     .section__overlay { padding: 0rem 0rem !important; margin: 0!important; height: 45vh !important;}
+     .swiper-container {width: 103.5% !important;height: 40vh !important;}
+     }
+     @media (max-width: 360px) {
+     }
+
+     .section__overlayCategory { border: 2px solid white; border-radius: 0.4rem; margin-bottom: 1rem !important;}
+     .category__sectionHeader { padding: 0.6rem 0.8rem; background-color: white;
+     display: flex; justify-content: space-between; align-items: center; }
+     .category__sectionHeader > h5 { font-size: 1rem;  }
+     .category__sectionHeader > i {color: peru; }
+     .category__SectionBody { }
+     .category__SectionBody > ul { list-style: none;}
+     .category__SectionBody > ul > li { padding: 0.5rem 0.6rem; display: flex;}
+     .category__SectionBody > ul > li i { color: white;}
+     .category__SectionBody > ul > li a { font-size: 0.9rem; flex: 1;}
+     .category__SectionBody > ul > li a > span { float: right !important; }
+
+     .swiper-container {
+      width: 100%;
+      height: 50%;
+    }
+
+    .swiper-slide {text-align: center;font-size: 18px;background: transparent; /* Center slide text vertically */
+      -webkit-box-align: center;-ms-flex-align: center;-webkit-align-items: center;align-items: center;}
+    .swiper-slide > img { width: 100%; height: 90%; border-radius: 0.2rem; border-radius: 0.3rem; }
+</style>
+{% endblock stylesheet %}
+
+<div class="section__overlay">
+
+    <div class="row">
+
+        <div class="col-md-9 col-xs-12">
+              <div class="swiper-container">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                      <img src="{% static 'img/bg3.jpg' %}" class="img-responsive" />
+                  </div>
+                    <div class="swiper-slide">
+                      <img src="{% static 'img/bg4.jpg' %}" class="img-responsive" />
+                  </div>
+
+                  <div class="swiper-slide">
+                      <img src="{% static 'img/bg5.jpg' %}" class="img-responsive" />
+                  </div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+              </div>
+        </div>
+
+        <div class="col-md-3 hidden-xs">
+            <div class="section__overlayCategory">
+                <div class="category__section">
+                    <div class="category__sectionHeader">
+                        <h5>Shopping Categories</h5>
+                        <i class="fa fa-tags"></i>
+                    </div>
+
+                    <div class="category__SectionBody">
+                        <ul>
+                            <li>
+                                <a href="">Gloceries</a>
+                            </li>
+                            <li>
+                                <a href="">Beverages</a>
+                            </li>
+                            <li>
+                                <a href="">Unilever product</a>
+                            </li>
+                            <li>
+                                <a href="">Other Categories</a>
+                                <span><i class="fa fa-arrow-right"></i></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section_overlayImage2">
+                <img src="{% static 'img/bg2.jpg' %}" class="img-responsive">
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+</div>
+<br />
+<br />
+
+{% block scripts %}
+<script>
+    var swiper = new Swiper('.swiper-container', {
+      spaceBetween: 1,
+      centeredSlides: true,
+      autoplay: {
+        delay: 4500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+  </script>
+{% endblock scripts %}

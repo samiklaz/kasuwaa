@@ -1,0 +1,32 @@
+{% load static %}
+
+{% block stylesheet %}
+<style>
+    .product__category {border: 1px solid whitesmoke; border-radius: 0.4rem;}
+    .product__categoryHeader {border-top: 2px solid peru;border-radius: 0.4rem; padding: 0.6rem 1rem;}
+    .product__categoryHeader > h5 {font-weight: bold; opacity: 0.8;}
+    .product__categoryBody {border-top: 1px solid whitesmoke;padding: 0.6rem 1rem;}
+    .product__categoryBody > ul {list-style: none;}
+    .product__categoryBody > ul > li {padding-bottom: 0.6rem;}
+    .product__categoryBody > ul > li a {font-size: 1rem; font-weight: 300;}
+    .product__categoryBody > ul > li a > span {opacity: 0.5;}
+    .product__categorySection {width: 100% !important; }
+    .product__categoryBody img {width: 100% !important;}
+    .product__categoryBody__right {padding-top: 0.6rem;}
+    .product__categoryBody__right h5 {font-size: 1rem;}
+    .product__categoryBody__right p {color: peru; font-weight: bold;}
+</style>
+{% endblock stylesheet %}
+
+<div class="product__category">
+    <div class="product__categoryHeader">
+        <h5>Product Category</h5>
+    </div>
+    <div class="product__categoryBody">
+        <ul>
+            {% for category in category %}
+            <li><a href="{% url 'core:category' category.slug %}">{{category.name}} <span> </span></a> </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

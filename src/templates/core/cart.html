@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<style>
+.category__tabs {padding: 0.5rem 5rem;
+background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(253, 253, 253, 1));}
+.category__tabs > h3 { font-weight: bold; font-size: 1.3rem; padding-bottom: 0.3rem; }
+.category__tabsLink a {font-style: italic;}
+.category__tabsLink .cat {color: peru !important;}
+
+@media (max-width: 767.98px) {
+    .cart__section {display: flex; width: 100%; flex-direction: column; align-items: center;
+     justify-content: center; text-align: center; padding: 0.8rem 0;}
+    .cart__section > div {display: flex; width: 100%; border: 1px solid whitesmoke; flex-direction: column; align-items: center;
+     justify-content: center; text-align: center; padding: 0.8rem 0;}
+    .cart__section > div > img {width: 40% !important; object-fit: contain; margin-bottom: 0.5rem;}
+    .cart__sectionRight {width: 50%;}
+    .cart__sectionRight__single{ display: flex; justify-content: space-between; width: 100%;margin-bottom: 1rem;padding-bottom: 1rem;}
+    .cart__sectionRight__single > p {font-weight: bold;}
+}
+
+.cart {margin-top: 2rem !important;}
+.cart__checkout {background-color: whitesmoke; padding: 1rem; border-radius: 0.5rem;}
+.cart__checkout > h4 {font-size: 1.1rem; font-weight: bold; padding-bottom: 0.5rem;}
+.cart__checkoutDesc, .cart__checkoutDes {display: flex; flex-direction: row; justify-content: space-between;padding: 0.5rem 0;}
+.cart__checkoutDesc > p, .cart__checkoutDesc > span {font-size: 1.2rem; font-weight: bold;}
+</style>
+{% endblock stylesheet %}
+
+{% block overlay %}
+<div class="category">
+    <div class="category__tabs">
+        <h3>Cart</h3>
+        <div class="category__tabsLink">
+            <a href="{% url 'core:product' %}">Home</a> >
+            <a href="http://127.0.0.1:8000/category/glocery/">Gloceries</a> >
+            <a href="" class="cat">Cart</a>
+        </div>
+    </div>
+</div>
+{% endblock overlay %}
+
+{% block content %}
+<div class="cart hidden-lg">
+    <div class="cart__section">
+        {% for order_item in object.items.all  %}
+        <div>
+            <img src="{{ order_item.item.image.url }}" class="img-responsive" />
+            <div class="cart__sectionRight">
+                <div class="cart__sectionRight__single">
+                    <p>Product</p>
+                    <span>{{ order_item.item.title }}</span>
+                </div>
+
+                <div class="cart__sectionRight__single">
+                    <p>Price</p>
+                    <span>N{{ order_item.item.price }}.00</span>
+                </div>
+
+                <div class="cart__sectionRight__single">
+                    <p>Quantity</p>
+                    <span>{{ order_item.quantity }}</span>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="cart hidden-lg">
+    <div class="cart__section">
+        <strong>
+            <p>Total N{{ object.get_total }}.00</p>
+        </strong>
+        <br />
+
+        <button class="btn btn-outline-primary">Checkout</button>
+    </div>
+</div>
+
+<div class="cart hidden-xs">
+    {% if object.items.all %}
+    <div class="row" style="margin-left: 1rem;">
+        <div class="col-md-8">
+            <h3>Order Summary</h3>
+            <br />
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for order_item in object.items.all  %}
+                        <tr>
+                            <td>
+                                <img src="{{ order_item.item.image.url }}" class="img-responsive"
+                                     style="height: 2rem !important; object-fit: contain;" />
+                            </td>
+                            <td>N{{ order_item.item.price }}.00</td>
+                            <td>
+                                <a href="{% url 'core:remove_single_item_from_cart' order_item.item.slug %}">
+                                    <i class="fa fa-minus mr-2 ml-2" style="color: red;"></i>
+                                </a>
+                                {{ order_item.quantity }}
+                                <a href="{% url 'core:add_to_cart' order_item.item.slug %}"><i class="fa fa-plus mr-1 ml-2" style="color: darkslateblue;"></i></a>
+                            </td>
+                            <td>
+                                {% if order_item.item.discount_price %}
+                                    N{{ order_item.get_total_item_discount_price }}.00
+                                    <span style="background-color: darkslateblue; font-weight: bold; padding: 0.2rem; color: white; border-radius: 1.5rem;
+                                    font-size: 0.5rem;">
+                                        N{{ order_item.get_amount_saved }} off
+                                    </span>
+                                {% else %}
+                                    N{{ order_item.get_total_item_price }}.00
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <a href="{% url 'core:remove_from_cart' order_item.item.slug %}">
+                                    <i class="fa fa-trash" style="color: red; font-size: 1.3rem;"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <br />
+
+                <form action="{% url 'core:add_coupon' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">&nbsp;
+                        <div class="col">
+                            <input type="text" placeholder="Promo code" name="code" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-outline-primary">Apply Coupon</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <br /><br />
+            {% if object.coupons %}
+            <div class="cart__checkout">
+                <h4>Cart total</h4>
+                <div class="cart__checkoutDes">
+                    <p>Total</p>
+                    <span>N{{ object.get_total }}.00</span>
+                </div>
+
+                <div class="cart__checkoutDes">
+                    <p>Discount</p>
+                    <span>N{{ object.get_coupon }}.00</span>
+                </div>
+
+                <div class="cart__checkoutDesc">
+                    <p>Pay</p>
+                    <span>N{{ object.get_discount_total }}.00</span>
+                </div>
+                <hr />
+                <br />
+                <div style="display:flex; flex-direction: row; justify-content: space-between;">
+                    <div></div>
+                    <a href="{% url 'core:checkout' %}" type="submit" class="btn btn-primary" style="color: white !important
+                    ;background-color: peru;border: none;">Proceed to checkout</a>
+                </div>
+            </div>
+
+            {% else %}
+            <div class="cart__checkout">
+                <h4>Cart total</h4>
+                <div class="cart__checkoutDesc">
+                    <p>Total</p>
+                    <span>N{{ object.get_total }}.00</span>
+                </div>
+
+                <hr />
+                <br />
+                <div style="display:flex; flex-direction: row; justify-content: space-between;">
+                    <div></div>
+                    <a href="{% url 'core:checkout' %}" type="submit" class="btn btn-primary" style="color: white !important
+                    ;background-color: peru;border: none;">Proceed to checkout</a>
+                </div>
+            </div>
+            {% endif %}
+            <br />
+            <div>{% include 'snippets/sidebar.html' %} </div>
+        </div>
+    </div>
+    {% else %}
+    <br />
+    <h3>Your Cart is empty </h3>
+    <br />
+    <a href="{% url 'core:product' %}" class="btn btn-primary" style="color: white !important;">Start Shopping</a>
+    {% endif %}
+</div>
+
+
+{% endblock %}

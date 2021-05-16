@@ -1,0 +1,124 @@
+{% load static %}
+
+<style>
+    .product__footer {margin-bottom: 1.6rem !important; }
+    .product__footerBody {width: 100%; padding-bottom: 1rem;}
+    .product__footerBody  img {width: 100%; height: 8vh;}
+    .product__footerBody h6 {margin-bottom: 0.3rem !important;}
+    .products__header, .product__footerHeader { }
+    .products__header > h3, .product__footerHeader > h5 { padding-bottom: 0.4rem; font-size: 1rem;
+    width: fit-content; border-bottom: 2px solid peru; }
+    .products__body, .product__footerBody { margin-top: 1rem !important;}
+    .product__footerBody p {color: peru; font-weight: bold;}
+</style>
+
+
+<div class="row" style="margin: 3rem -1rem!important;">
+    <div class="col-md-3">
+        <div class="product__footer">
+            <div class="product__footerHeader">
+                <h5>Just in</h5>
+            </div>
+            {% if items %}
+            {% for item in items %}
+            <div href="" class="product__footerBody">
+                <a href="{{item.get_add_to_cart_url}}" class="row" style="margin: 0 -1rem!important;">
+                    <div class="col-4">
+                        <img src="{{item.image.url}}" class="img-responsive" />
+                    </div>
+                    <div class="col-8">
+                        <h6>{{item.title}}</h6>
+                        <p>N {{item.price}}.00</p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>No item to display</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="product__footer">
+            <div class="product__footerHeader">
+                <h5>Order in bags</h5>
+            </div>
+            {% if items_bags %}
+            {% for item in items_bags %}
+            <div href="" class="product__footerBody">
+                <a href="{{item.get_add_to_cart_url}}" class="row" style="margin: 0 -1rem!important;">
+                    <div class="col-4">
+                        <img src="{{item.image.url}}" class="img-responsive" />
+                    </div>
+                    <div class="col-8">
+                        <h6>{{item.title}}</h6>
+                        <p>N {{item.price}}.00</p>
+                    </div>
+                </a>
+
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>No item to display</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="product__footer">
+            <div class="product__footerHeader">
+                <h5>Soft drinks</h5>
+            </div>
+            {% if items_beverages %}
+            {% for item in items_beverages %}
+            <div href="" class="product__footerBody">
+                <a href="{{item.get_add_to_cart_url}}" class="row" style="margin: 0 -1rem!important;">
+                    <div class="col-4">
+                        <img src="{{item.image.url}}" class="img-responsive" />
+                    </div>
+                    <div class="col-8">
+                        <h6>{{item.title}}</h6>
+                        <p>N {{item.price}}.00</p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>No item to display</p>
+            {% endif %}
+        </div>
+    </div>
+
+     <div class="col-md-3">
+        <div class="product__footer">
+            <div class="product__footerHeader">
+                <h5>Order in rubbers</h5>
+            </div>
+
+            {% if items_rubber %}
+            {% for item in items_rubber %}
+            <div href="" class="product__footerBody">
+                <a href="{{item.get_add_to_cart_url}}" class="row" style="margin: 0 -1rem!important;">
+                    <div class="col-4">
+                        <img src="{{item.image.url}}" class="img-responsive" />
+                    </div>
+                    <div class="col-8">
+                        <h6>{{item.title}}</h6>
+                        <p>N {{item.price}}.00</p>
+                    </div>
+                </a>
+            </div>
+
+            {% endfor %}
+            {% else %}
+            <p>No item to display</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+        </div>
+    </div>
+</div>
